@@ -1,0 +1,307 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+:root {
+  --primary-color: #033D74;
+  --secondary-color: #b0b0b0;
+  --accent-color: #a0a0a0;
+  --background-color: #dfdfdf;
+  --text-color: #011B35;
+  --section1-bg: rgba(113, 184, 142, 0.9); /* Accent color with transparency */
+  --section2-bg: rgb(195 164 239 / 90%); /* Secondary color with transparency */
+  --section3-bg: #0057af; /* Primary color with transparency */
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(135deg, #d7d7d7ca 20%, #7676765c 50%, #f6f5f580 80%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  color: var(--text-color);
+  font-family: 'Nunito', sans-serif !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--primary-color);
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+nav {
+  background-color: var(--primary-color);
+}
+
+nav a {
+  color: #ffffff;
+}
+
+button {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  transition: background-color 0.5s ease !important;
+}
+
+button:hover {
+  background-color: var(--accent-color);
+}
+
+.hero {
+  position: relative;
+  background: linear-gradient(17deg, var(--secondary-color) 20%, var(--accent-color) 50%, var(--background-color) 80%);
+  color: var(--text-color);
+  padding: 50px 32px; /* Increase padding to make the hero taller */
+  text-align: center;
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Arrange children vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2), 0 -4px 5px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 1px black;
+  overflow: hidden;
+}
+
+/* General section styling */
+.section {
+  padding: 32px;
+  margin: 32px auto; /* Center section and create space between sections */
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+.section1 {
+  margin: 0px !important;
+  position: relative;
+  background: var(--secondary-color);
+  color: var(--text-color);
+  padding: 50px 32px; /* Increase padding to make the hero taller */
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Arrange children vertically */
+  justify-content: center; /* Center content vertically */
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2), 0 -4px 5px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 1px black;
+  overflow: hidden;
+}
+
+.section2 {
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2), 0 -4px 5px rgba(0, 0, 0, 0.2);
+  background: var(--secondary-color);
+  width: 100vw; /* Make sure it takes the full viewport width */
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-left: calc((100% - 1200px) / 2); /* Assuming 1200px is the max-width */
+  padding-right: calc((100% - 1200px) / 2);
+}
+
+.feature-item {
+  transition: color 0.3s ease;
+}
+
+.gallery-item {
+  overflow: hidden; /* Ensure no scroll bars are shown */
+}
+
+.gallery-item img {
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.05);
+}
+
+.newsletter {
+  padding: 32px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.newsletter h4 {
+  color: var(--primary-color);
+}
+
+.newsletter button {
+  background-color: var(--primary-color) !important;
+  color: #ffffff;
+}
+
+/* Text Shadow Class */
+.text-shadow {
+  text-shadow: 1px 1px 2px black;
+}
+
+/** GALLERY **/
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 16px;
+}
+
+.gallery-item {
+  grid-column: span 4;
+}
+
+.gallery-item.wide {
+  grid-column: span 8;
+}
+
+.gallery-item.tall {
+  grid-row: span 2;
+}
+
+.gallery-item.wide-tall {
+  grid-column: span 8;
+  grid-row: span 2;
+}
+
+/* Override padding for MuiContainer-root */
+@media (min-width: 600px) {
+  .MuiContainer-root {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* General styling for About Us section */
+
+.about-us {
+  text-align: center;
+}
+
+.about-us .MuiTypography-h3 {
+  margin-bottom: 16px;
+  color: var(--primary-color);
+}
+
+.about-us .MuiTypography-h4 {
+  margin-bottom: 16px;
+  color: var(--accent-color);
+}
+
+.about-us .MuiTypography-body1 {
+  margin-bottom: 16px;
+}
+
+.about-us .MuiGrid-item {
+  display: flex;
+  justify-content: center;
+}
+
+.about-us .MuiCard-root {
+  width: 100%;
+}
+
+.about-us .MuiCardContent-root ul {
+  text-align: left;
+}
+
+.text-shadow {
+  text-shadow: 1px 1px 2px black;
+}
+
+/* General styling for Home section */
+.home-container {
+  padding: 32px;
+}
+
+.home-container .section {
+  max-width: 100%; /* Add max-width to prevent sections from stretching across the whole page */
+  margin: 32px auto; /* Center section and create space between sections */
+}
+
+/* Additional styling for form elements */
+.MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.MuiInputBase-input, .MuiInputLabel-root {
+  color: #ffffff; /* Ensure input text and label are white */
+}
+
+.MuiButton-root {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  transition: background-color 0.5s ease !important;
+}
+
+.MuiButton-root:hover {
+  background-color: var(--accent-color);
+}
+
+/* Hamburger to Close Icon Animation */
+.hamburger-icon, .close-icon {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  z-index: 1500; /* Ensure it's above the Drawer and Navbar content */
+  cursor: pointer;
+  width: 30px;
+  height: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hamburger-icon div, .close-icon div {
+  width: 30px;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.5s ease; /* Smooth transition for all properties */
+}
+
+.hamburger-icon div {
+  margin: 4px 0;
+}
+
+.close-icon div:nth-child(1),
+.close-icon div:nth-child(3) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+}
+
+.close-icon div:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(45deg);
+  background-color: var(--primary-color); /* Change this to your desired close icon color */
+}
+
+.close-icon div:nth-child(2) {
+  opacity: 0;
+}
+
+.close-icon div:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  background-color: var(--primary-color); /* Change this to your desired close icon color */
+}
+
+/* Keyframes for spin animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply spin animation on state change */
+.close-icon.spin {
+  animation: spin 0.5s forwards;
+}

@@ -1,0 +1,44 @@
+[
+    {
+      "id": 1,
+      "title": "The Value of Braille in a Digital World",
+      "excerpt": "Discover the impact of puzzles on learning Braille, and how they make literacy more engaging for all.",
+      "img": "/Posts/ValueOfBraille.jpg",
+      "filename": "ValueOfBraille.html"
+    },
+    {
+        "id": 2,
+        "title": "The Neuroscience Behind Braille Literacy",
+        "excerpt": "Learn how Braille strengthens the brain, enhancing literacy and independence.",
+        "img": "/Posts/NeuroscienceBehindBrailleLiteracy.jpg",
+        "filename": "NeuroscienceBehindBrailleLiteracy.html"
+      },
+    {
+        "id": 3,
+        "title": "A Fresh Take on Learning Braille",
+        "excerpt": "Discover how the Braille Skills Puzzle transforms Braille learning into an engaging and empowering experience, boosting both literacy and confidence.",
+        "img": "/Posts/Independence.jpg",
+        "filename": "Independence.html"
+    },
+    {
+      "id": 4,
+      "title": "Unlocking Creativity Through Braille: More Than Just Literacy",
+      "excerpt": "Explore how Braille transcends literacy, unlocking a world of creative expression in art, music, writing, and design for visually impaired individuals.",
+      "img": "/Posts/Creativity.jpg",
+      "filename": "Creativity.html"
+    },
+    {
+      "id": 5,
+      "title": "Multisensory Learning: A Key to Success for Visually Impaired Students",
+      "excerpt": "Discover how multisensory learning, enhanced by tools like the Braille Skills Puzzle, can significantly improve education for visually impaired students.",
+      "img": "/Posts/Multisensory.jpg",
+      "filename": "Multisensory.html"
+    },
+    {
+      "id": 6,
+      "title": "The Simplicity of the Braille Skills Puzzle: The Perfect Introduction to Braille",
+      "excerpt": "Discover the power of simplicity with the Braille Skills Puzzle, an innovative tool that introduces Braille through tactile learning and builds a strong foundation for literacy.",
+      "img": "/Posts/Simplicity.jpg",
+      "filename": "Simplicity.html"
+    }
+]
