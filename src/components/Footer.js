@@ -1,137 +1,130 @@
 import React from 'react';
-import { Box, Container, Grid, Typography, Link, IconButton } from '@mui/material';
-import { Facebook, Instagram } from '@mui/icons-material';
-import { motion } from 'framer-motion';
+import { Facebook, Instagram, ExternalLink } from 'lucide-react';
 
 const Footer = () => {
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About Us" },
+    { href: "/products", label: "Products" },
+    { href: "/blog", label: "Blog" },
+    { href: "/contact", label: "Contact Us" }
+  ];
+
+  const resources = [
+    { name: "Braille Institute", url: "https://www.brailleinstitute.org/" },
+    { name: "American Foundation for the Blind", url: "https://www.afb.org/" },
+    { name: "National Braille Press", url: "https://www.nationalbraillepress.org/" },
+    { name: "Hadley Institute", url: "https://www.hadley.edu/" }
+  ];
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-    >
-      <Box
-        sx={{
-          backgroundColor: 'var(--primary-color)',
-          color: '#fff',
-          padding: '20px 0',
-          boxShadow: '0 -4px 5px rgba(0, 0, 0, 0.2)',
-        }}
-      >
-        <Container>
-          <Grid container spacing={4}>
-            {/* Logo and Description */}
-            <Grid item xs={12} md={3}>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
-                Amaze Puzzles
-              </Typography>
-              <Typography variant="body2">
-                Amaze Puzzles&#8482; offers engaging and educational puzzles designed to enhance Braille literacy for all ages. Our puzzles make learning Braille fun and accessible, supporting both beginners and those looking to improve their skills.
-              </Typography>
-            </Grid>
+    <footer className="relative bg-gradient-to-br from-slate-900 to-slate-800 text-white overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 -right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -left-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+      </div>
 
-            {/* Navigation Links */}
-            <Grid item xs={12} md={3}>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
-                Navigation
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <Link href="/" color="inherit" underline="hover">Home</Link>
-                <Link href="/about" color="inherit" underline="hover">About Us</Link>
-                <Link href="/products" color="inherit" underline="hover">Products</Link>
-                <Link href="/blog" color="inherit" underline="hover">Blog</Link>  {/* Added Blog Link */}
-                <Link href="/contact" color="inherit" underline="hover">Contact Us</Link>
-              </Box>
-            </Grid>
+      <div className="relative max-w-7xl mx-auto px-6 py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Brand Section */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                <span className="text-white font-bold text-lg">A</span>
+              </div>
+              <span className="text-xl font-bold">Amaze Puzzles</span>
+            </div>
+            <p className="text-slate-300 leading-relaxed mb-6">
+              Amaze Puzzles™ offers engaging and educational puzzles designed to enhance Braille literacy for all ages. 
+              Our puzzles make learning Braille fun and accessible, supporting both beginners and those looking to improve their skills.
+            </p>
+            
+            {/* Social Links */}
+            <div className="flex space-x-4">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-blue-600 transition-all duration-300 group"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-5 h-5 text-white" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 transition-all duration-300 group"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5 text-white" />
+              </a>
+            </div>
+          </div>
 
-            {/* Helpful Resources */}
-            <Grid item xs={12} md={3}>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
-                Helpful Resources
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <Link
-                  href="https://www.brailleinstitute.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  color="inherit"
-                  underline="hover"
-                  title="Visit the Braille Institute website"
+          {/* Navigation Links */}
+          <div>
+            <h4 className="text-lg font-bold mb-6 text-white">Navigation</h4>
+            <div className="space-y-3">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="block text-slate-300 hover:text-white hover:translate-x-1 transition-all duration-200"
                 >
-                  Braille Institute
-                </Link>
-                <Link
-                  href="https://www.afb.org/blindness-and-low-vision/braille"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  color="inherit"
-                  underline="hover"
-                  title="Visit the American Foundation for the Blind website"
-                >
-                  American Foundation for the Blind
-                </Link>
-                <Link
-                  href="https://nfb.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  color="inherit"
-                  underline="hover"
-                  title="Visit the National Federation of the Blind website"
-                >
-                  National Federation of the Blind
-                </Link>
-                <Link
-                  href="https://www.perkins.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  color="inherit"
-                  underline="hover"
-                  title="Visit the Perkins School for the Blind website"
-                >
-                  Perkins School for the Blind
-                </Link>
-                <Link
-                  href="https://www.pharmabraille.com/pharmaceutical-braille/the-braille-alphabet/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  color="inherit"
-                  underline="hover"
-                  title="Visit a comprehensive Braille alphabet guide"
-                >
-                  Braille Alphabet Reference
-                </Link>
-              </Box>
-            </Grid>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
 
-            {/* Social Media Links */}
-            <Grid item xs={12} md={3}>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
-                Follow Us
-              </Typography>
-              <Box>
-                <IconButton href="https://www.facebook.com/profile.php?id=61563132061448" target="_blank" rel="noopener noreferrer" color="inherit" title="Follow Amaze Puzzles on Facebook">
-                  <Facebook />
-                </IconButton>
-                <IconButton href="https://www.instagram.com/amazepuzzles/" target="_blank" rel="noopener noreferrer" color="inherit" title="Follow Amaze Puzzles on Instagram">
-                  <Instagram />
-                </IconButton>
-              </Box>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', marginTop: '16px' }}>
-                Contact Us
-              </Typography>
-              <Typography variant="body2">
-                Phone: (210) 214-1360
-              </Typography>
-            </Grid>
-          </Grid>
-          <Box textAlign="center" mt={4}>
-            <Typography variant="body2" color="inherit">
-              &copy; {new Date().getFullYear()} Amaze Puzzles&#8482;. All rights reserved.
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
-    </motion.div>
+          {/* Resources */}
+          <div className="lg:col-span-2">
+            <h4 className="text-lg font-bold mb-6 text-white">Helpful Resources</h4>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {resources.map((resource) => (
+                <a
+                  key={resource.url}
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-slate-300 hover:text-white transition-all duration-200 group"
+                >
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">
+                    {resource.name}
+                  </span>
+                  <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-slate-700 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <p className="text-slate-400 text-sm">
+              © 2025 Amaze Puzzles™. All rights reserved.
+            </p>
+            <div className="flex space-x-6 text-sm">
+              <button
+                onClick={() => alert('Privacy Policy modal would open here')}
+                className="text-slate-400 hover:text-white transition-colors duration-200"
+              >
+                Privacy Policy
+              </button>
+              <button
+                onClick={() => alert('Terms of Service modal would open here')}
+                className="text-slate-400 hover:text-white transition-colors duration-200"
+              >
+                Terms of Service
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 };
 

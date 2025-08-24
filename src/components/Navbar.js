@@ -21,9 +21,6 @@ const Navbar = () => {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <a href="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
               <span className="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">
                 Amaze Puzzles
               </span>
