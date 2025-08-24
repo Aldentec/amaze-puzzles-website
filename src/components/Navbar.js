@@ -1,173 +1,105 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Button, Box, Drawer, List, ListItem, ListItemText, useMediaQuery, Badge, IconButton, Tooltip } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import logo from '../assets/images/amaze-logo-text.png';
-import useCart from './Store/Utils/useCart';
-import '../App.css';
+import { Menu, X, ShoppingCart } from 'lucide-react';
 
 const Navbar = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [spinning, setSpinning] = useState(false);
-  const [iconState, setIconState] = useState('hamburger');
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { cart } = useCart();
+  const [isOpen, setIsOpen] = useState(false);
+  const cart = []; // Replace with your actual cart hook
 
-  const handleDrawerToggle = () => {
-    if (iconState === 'close') {
-      setSpinning(true);
-      setTimeout(() => {
-        setDrawerOpen(!drawerOpen);
-        setIconState(iconState === 'hamburger' ? 'close' : 'hamburger');
-        setSpinning(false);
-      }, 500);
-    } else {
-      setDrawerOpen(!drawerOpen);
-      setIconState(iconState === 'hamburger' ? 'close' : 'hamburger');
-    }
-  };
+  const navLinks = [
+    { href: "/", label: "Home", title: "Go to the Home Page" },
+    { href: "/about", label: "About Us", title: "Learn more about Amaze Puzzles" },
+    { href: "/products", label: "Products", title: "View our Braille puzzles" },
+    { href: "/blog", label: "Blog", title: "Read our Blog" },
+    { href: "/contact", label: "Contact Us", title: "Get in touch with us" }
+  ];
 
   return (
     <>
-      <AppBar position="fixed" sx={{ backgroundColor: 'var(--primary-color) !important' }}>
-        <Toolbar>
-          <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-            <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-              <img src={logo} alt="Amaze Puzzles Logo" style={{ height: '50px', marginRight: '16px' }} />
-            </Link>
-            {!isMobile && (
-              <>
-                <Tooltip title="Go to the Home Page">
-                  <Button
-                    color="inherit"
-                    component={Link}
-                    to="/"
-                    sx={{ fontSize: '0.875rem' }}
-                  >
-                    Home
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Learn more about Amaze Puzzles">
-                  <Button
-                    color="inherit"
-                    component={Link}
-                    to="/about"
-                    sx={{ fontSize: '0.875rem' }}
-                  >
-                    About Us
-                  </Button>
-                </Tooltip>
-                <Tooltip title="View our Braille puzzles">
-                  <Button
-                    color="inherit"
-                    component={Link}
-                    to="/products"
-                    sx={{ fontSize: '0.875rem' }}
-                  >
-                    Products
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Read our Blog">
-                  <Button
-                    color="inherit"
-                    component={Link}
-                    to="/blog"
-                    sx={{ fontSize: '0.875rem' }}
-                  >
-                    Blog
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Get in touch with us">
-                  <Button
-                    color="inherit"
-                    component={Link}
-                    to="/contact"
-                    sx={{ fontSize: '0.875rem' }}
-                  >
-                    Contact Us
-                  </Button>
-                </Tooltip>
-              </>
-            )}
-          </Box>
-          {!isMobile && (
-            <Tooltip title="View cart">
-              <IconButton
-                color="inherit"
-                component={Link}
-                to="/cart"
+      {/* Fixed Modern Navigation */}
+      <nav className="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <a href="/" className="flex items-center space-x-3 group">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+                <span className="text-white font-bold text-lg">A</span>
+              </div>
+              <span className="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">
+                Amaze Puzzles
+              </span>
+            </a>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  title={link.title}
+                  className="text-slate-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+                </a>
+              ))}
+              
+              {/* Cart Icon */}
+              <a
+                href="/cart"
+                title="View cart"
+                className="relative p-2 text-slate-700 hover:text-blue-600 transition-colors duration-200"
               >
-                <Badge badgeContent={cart.length} color="error">
-                  <ShoppingCartIcon />
-                </Badge>
-              </IconButton>
-            </Tooltip>
-          )}
-        </Toolbar>
-      </AppBar>
-      <Toolbar />
-      <Drawer
-        anchor="right"
-        open={drawerOpen}
-        onClose={handleDrawerToggle}
-        sx={{
-          '& .MuiDrawer-paper': {
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'var(--background-color) !important',
-          },
-        }}
-      >
-        <List sx={{ mt: 4 }}>
-          <ListItem button component={Link} to="/" onClick={handleDrawerToggle}>
-            <Tooltip title="Go to the Home Page">
-              <ListItemText primary="Home" />
-            </Tooltip>
-          </ListItem>
-          <ListItem button component={Link} to="/about" onClick={handleDrawerToggle}>
-            <Tooltip title="Learn more about Amaze Puzzles">
-              <ListItemText primary="About Us" />
-            </Tooltip>
-          </ListItem>
-          <ListItem button component={Link} to="/products" onClick={handleDrawerToggle}>
-            <Tooltip title="View our Braille puzzles">
-              <ListItemText primary="Products" />
-            </Tooltip>
-          </ListItem>
-          <ListItem button component={Link} to="/blog" onClick={handleDrawerToggle}>
-            <Tooltip title="Read our Blog">
-              <ListItemText primary="Blog" />
-            </Tooltip>
-          </ListItem>
-          <ListItem button component={Link} to="/contact" onClick={handleDrawerToggle}>
-            <Tooltip title="Get in touch with us">
-              <ListItemText primary="Contact Us" />
-            </Tooltip>
-          </ListItem>
-          {isMobile && (
-            <ListItem button component={Link} to="/cart" onClick={handleDrawerToggle}>
-              <Tooltip title="View cart">
-                <ListItemText primary="Cart" />
-              </Tooltip>
-              <Badge badgeContent={cart.length} color="error">
-                <ShoppingCartIcon />
-              </Badge>
-            </ListItem>
-          )}
-        </List>
-      </Drawer>
-      {isMobile && (
-        <div
-          onClick={handleDrawerToggle}
-          className={`${iconState === 'close' ? 'close-icon' : 'hamburger-icon'} ${spinning ? 'spin' : ''}`}
-        >
-          <div></div>
-          <div></div>
-          <div></div>
+                <ShoppingCart className="w-6 h-6" />
+                {cart.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {cart.length}
+                  </span>
+                )}
+              </a>
+            </div>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 text-slate-700 hover:text-blue-600 transition-colors duration-200"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
-      )}
+
+        {/* Mobile Navigation */}
+        <div className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden bg-white border-t border-slate-200`}>
+          <div className="px-4 py-4 space-y-4">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                title={link.title}
+                onClick={() => setIsOpen(false)}
+                className="block text-slate-700 hover:text-blue-600 font-medium transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+            
+            {/* Mobile Cart Link */}
+            <a
+              href="/cart"
+              title="View cart"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center space-x-2 text-slate-700 hover:text-blue-600 font-medium transition-colors duration-200"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              <span>Cart ({cart.length})</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      {/* Spacer to prevent content from going under fixed nav */}
+      <div className="h-16"></div>
     </>
   );
 };
