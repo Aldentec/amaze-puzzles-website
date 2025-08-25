@@ -1,102 +1,220 @@
-import React, { useState } from 'react';
-import { Menu, X, ShoppingCart } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  useMediaQuery,
+  Badge,
+  IconButton,
+  Tooltip,
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import logo from '../assets/images/amaze-logo-text.png';
+import useCart from './Store/Utils/useCart';
+import '../App.css';
+
+const navLinks = [
+  { to: '/', label: 'Home', title: 'Go to the Home Page' },
+  { to: '/about', label: 'About Us', title: 'Learn more about Amaze Puzzles' },
+  { to: '/products', label: 'Products', title: 'View our Braille puzzles' },
+  { to: '/blog', label: 'Blog', title: 'Read our Blog' },
+  { to: '/contact', label: 'Contact Us', title: 'Get in touch with us' },
+];
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const cart = []; // Replace with your actual cart hook
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [spinning, setSpinning] = useState(false);
+  const [iconState, setIconState] = useState('hamburger');
+  const [elevated, setElevated] = useState(false);
 
-  const navLinks = [
-    { href: "/", label: "Home", title: "Go to the Home Page" },
-    { href: "/about", label: "About Us", title: "Learn more about Amaze Puzzles" },
-    { href: "/products", label: "Products", title: "View our Braille puzzles" },
-    { href: "/blog", label: "Blog", title: "Read our Blog" },
-    { href: "/contact", label: "Contact Us", title: "Get in touch with us" }
-  ];
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { cart } = useCart();
+
+  const handleDrawerToggle = () => {
+    if (iconState === 'close') {
+      setSpinning(true);
+      setTimeout(() => {
+        setDrawerOpen((v) => !v);
+        setIconState((s) => (s === 'hamburger' ? 'close' : 'hamburger'));
+        setSpinning(false);
+      }, 500);
+    } else {
+      setDrawerOpen((v) => !v);
+      setIconState((s) => (s === 'hamburger' ? 'close' : 'hamburger'));
+    }
+  };
+
+  useEffect(() => {
+    const onScroll = () => setElevated(window.scrollY > 6);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <>
-      {/* Fixed Modern Navigation */}
-      <nav className="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <a href="/" className="flex items-center space-x-3 group">
-              <span className="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">
-                Amaze Puzzles
-              </span>
-            </a>
+      <AppBar
+        position="fixed"
+        elevation={elevated ? 6 : 0}
+        sx={{
+          background: 'linear-gradient(to right, #9333ea, #2563eb)', // purple → blue
+          color: 'white',
+          backdropFilter: 'blur(10px)',
+          borderBottom: '1px solid rgba(255,255,255,0.25)',
+          transition: 'background-color .25s ease, box-shadow .25s ease, border-color .25s ease',
+        }}
+      >
+        <Toolbar sx={{ minHeight: { xs: 64, sm: 72 }, px: { xs: 1.5, sm: 3, md: 4 }, gap: 1 }}>
+          {/* Brand (logo) */}
+          <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+              <img src={logo} alt="Amaze Puzzles Logo" style={{ height: 80, marginRight: 12, display: 'block' }} />
+            </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  title={link.title}
-                  className="text-slate-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                </a>
-              ))}
-              
-              {/* Cart Icon */}
-              <a
-                href="/cart"
-                title="View cart"
-                className="relative p-2 text-slate-700 hover:text-blue-600 transition-colors duration-200"
+            {/* Desktop nav */}
+            {!isMobile && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 0.5,
+                  ml: 1,
+                  px: 1,
+                  py: 0.75,
+                  borderRadius: 9999,
+                  border: '1px solid #e2e8f0',
+                  backgroundColor: 'rgba(255,255,255,0.8)',
+                  backdropFilter: 'blur(8px)',
+                }}
               >
-                <ShoppingCart className="w-6 h-6" />
-                {cart.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {cart.length}
-                  </span>
-                )}
-              </a>
-            </div>
+                {navLinks.map(({ to, label, title }) => (
+                  <Tooltip key={to} title={title}>
+                    <Button
+                      component={NavLink}
+                      to={to}
+                      // NavLink gives isActive; style based on it (no useLocation needed)
+                      sx={({ isActive }) => ({
+                        textTransform: 'none',
+                        fontWeight: 700,
+                        fontSize: '.9rem',
+                        px: 1.5,
+                        py: 0.75,
+                        borderRadius: 9999,
+                        color: isActive ? 'primary.main' : '#334155',
+                        backgroundColor: isActive ? 'rgba(37,99,235,0.10)' : 'transparent',
+                        '&:hover': {
+                          backgroundColor: isActive ? 'rgba(37,99,235,0.18)' : '#eff6ff',
+                          color: 'primary.main',
+                        },
+                      })}
+                    >
+                      {label}
+                    </Button>
+                  </Tooltip>
+                ))}
+              </Box>
+            )}
+          </Box>
 
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 text-slate-700 hover:text-blue-600 transition-colors duration-200"
+          {/* Desktop cart */}
+          {!isMobile && (
+            <Tooltip title="View cart">
+              <IconButton color="primary" component={Link} to="/cart" sx={{ ml: 1 }}>
+                <Badge badgeContent={cart.length} color="error">
+                  <ShoppingCartIcon sx={{ color: '#ffffff' }} />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+          )}
+
+          {/* Mobile toggle (your animated hamburger) */}
+          {isMobile && (
+            <div
+              onClick={handleDrawerToggle}
+              className={`${iconState === 'close' ? 'close-icon' : 'hamburger-icon'} ${spinning ? 'spin' : ''}`}
               aria-label="Toggle menu"
+              aria-expanded={drawerOpen}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handleDrawerToggle()}
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
 
-        {/* Mobile Navigation */}
-        <div className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden bg-white border-t border-slate-200`}>
-          <div className="px-4 py-4 space-y-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                title={link.title}
-                onClick={() => setIsOpen(false)}
-                className="block text-slate-700 hover:text-blue-600 font-medium transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            ))}
-            
-            {/* Mobile Cart Link */}
-            <a
-              href="/cart"
-              title="View cart"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center space-x-2 text-slate-700 hover:text-blue-600 font-medium transition-colors duration-200"
+      {/* Spacer so content isn't under the AppBar */}
+      <Toolbar sx={{ minHeight: { xs: 64, sm: 72 } }} />
+
+      {/* Mobile Drawer */}
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={handleDrawerToggle}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'var(--background-color) !important',
+          },
+        }}
+      >
+        <List sx={{ mt: 4, px: 1 }}>
+          {navLinks.map(({ to, label, title }) => (
+            <ListItem
+              key={to}
+              button
+              component={NavLink}
+              to={to}
+              onClick={handleDrawerToggle}
+              // NavLink again gives isActive here (via MUI sx callback)
+              sx={({ isActive }) => ({
+                borderRadius: 8,
+                mb: 0.5,
+                backgroundColor: isActive ? 'rgba(37,99,235,0.12)' : 'transparent',
+                '&:hover': {
+                  backgroundColor: isActive ? 'rgba(37,99,235,0.18)' : 'rgba(239,246,255,1)',
+                },
+              })}
             >
-              <ShoppingCart className="w-5 h-5" />
-              <span>Cart ({cart.length})</span>
-            </a>
-          </div>
-        </div>
-      </nav>
+              <Tooltip title={title}>
+                <ListItemText primary={label} primaryTypographyProps={{ fontWeight: 700 }} />
+              </Tooltip>
+            </ListItem>
+          ))}
 
-      {/* Spacer to prevent content from going under fixed nav */}
-      <div className="h-16"></div>
+          {/* Mobile cart */}
+          <ListItem
+            button
+            component={NavLink}
+            to="/cart"
+            onClick={handleDrawerToggle}
+            sx={{
+              borderRadius: 8,
+              mt: 1,
+              '&:hover': { backgroundColor: 'rgba(239,246,255,1)' },
+            }}
+          >
+            <Tooltip title="View cart">
+              <ListItemText primary="Cart" primaryTypographyProps={{ fontWeight: 700 }} />
+            </Tooltip>
+            <Badge badgeContent={cart.length} color="error" sx={{ ml: 1 }}>
+              <ShoppingCartIcon />
+            </Badge>
+          </ListItem>
+        </List>
+      </Drawer>
     </>
   );
 };

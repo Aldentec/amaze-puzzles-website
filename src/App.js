@@ -17,6 +17,8 @@ import CookieConsent from './components/CookieConsent';
 import Cookies from 'js-cookie';
 import { initializeAnalytics } from './utils/analytics';
 
+import './components/modern-styles.css'; // Import the CSS file
+
 const App = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -73,8 +75,8 @@ const App = () => {
             <Route path="/blog/post/:filename" element={<BlogPost />} />
           </Routes>
         </main>
-        <Footer />
       </div>
+      <Footer />
       <CookieConsent />
     </Router>
   );

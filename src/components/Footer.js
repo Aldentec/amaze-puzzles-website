@@ -30,9 +30,6 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
               <span className="text-xl font-bold">Amaze Puzzles</span>
             </div>
             <p className="text-slate-300 leading-relaxed mb-6">
@@ -43,7 +40,7 @@ const Footer = () => {
             {/* Social Links */}
             <div className="flex space-x-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/profile.php?id=61563132061448"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-blue-600 transition-all duration-300 group"
@@ -52,7 +49,7 @@ const Footer = () => {
                 <Facebook className="w-5 h-5 text-white" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/amazepuzzles/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 transition-all duration-300 group"
@@ -110,13 +107,13 @@ const Footer = () => {
             <div className="flex space-x-6 text-sm">
               <button
                 onClick={() => alert('Privacy Policy modal would open here')}
-                className="text-slate-400 hover:text-white transition-colors duration-200"
+                className="hover:text-white transition-colors duration-200"
               >
                 Privacy Policy
               </button>
               <button
                 onClick={() => alert('Terms of Service modal would open here')}
-                className="text-slate-400 hover:text-white transition-colors duration-200"
+                className="hover:text-white transition-colors duration-200"
               >
                 Terms of Service
               </button>
